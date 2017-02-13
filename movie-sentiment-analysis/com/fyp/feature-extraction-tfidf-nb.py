@@ -1,5 +1,6 @@
 import csv
 
+
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.naive_bayes import BernoulliNB
@@ -31,7 +32,7 @@ def pre_process(data, target):
 
 
 def learn_model(data, target):
-    data_train, data_test, target_train, target_test = cross_validation.train_test_split(data, target, test_size=0.3, random_state='0')
+    data_train, data_test, target_train, target_test = cross_validation.train_test_split(data, target, test_size=0.3, random_state=43)
     classifier = BernoulliNB().fit(data_train, target_train)
     predicted = classifier.predict(data_test)
     evaluate_model(target_test, predicted)
