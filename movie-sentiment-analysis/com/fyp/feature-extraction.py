@@ -14,7 +14,7 @@ def main():
         positive_list = list(reader_positive)
         random.shuffle(positive_list)
         training_positive = positive_list[:(len(positive_list) * 70 / 100)]
-        testing_positive = positive_list[(len(positive_list) * 30 / 100):]
+        testing_positive = positive_list[(len(positive_list) * 70 / 100):]
 
     with open("./../../Dataset/tokenizedoutputneg.csv", "rb") as f:
         reader_negative = csv.reader(f)
