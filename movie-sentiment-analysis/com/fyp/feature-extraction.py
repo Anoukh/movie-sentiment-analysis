@@ -21,7 +21,7 @@ def main():
         negative_list = list(reader_negative)
         random.shuffle(negative_list)
         training_negative = negative_list[: len(negative_list) * 70 / 100]
-        testing_negative = negative_list[(len(negative_list) * 30 / 100):]
+        testing_negative = negative_list[(len(negative_list) * 70 / 100):]
 
     # Import the Negative and Positive Sets
     for (words, sentiment) in training_positive + training_negative:
