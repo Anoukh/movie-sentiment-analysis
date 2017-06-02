@@ -108,7 +108,7 @@ def find_best_words(word_scores, number):
 def best_word_features(words):
     return dict([(word, True) for word in words if word in best_words])
 
-numbers_to_test = [10, 100, 1000, 10000, 15000]
+numbers_to_test = [10, 100, 1000, 10000, 15000, 20000]
 for num in numbers_to_test:
     print 'evaluating best %d word features' % (num)
     best_words = find_best_words(word_scores, num)

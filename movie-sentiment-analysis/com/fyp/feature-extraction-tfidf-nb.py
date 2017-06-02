@@ -1,4 +1,5 @@
 import csv
+import pickle
 
 
 from sklearn.feature_extraction.text import CountVectorizer
@@ -10,16 +11,29 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import accuracy_score
 
 
-def load_file():
-    with open("./../../Dataset/merged.csv") as csv_file:
+# def load_file():
+#     with open("./../../Dataset/merged.csv") as csv_file:
+#         reader = csv.reader(csv_file, delimiter=',', quotechar='"')
+#         reader.next()
+#         data = []
+#         target = []
+#         for row in reader:
+#             if row[0] and row[1]:
+#                 data.append(row[0])
+#                 target.append(row[1])
+#         return data, target
+
+
+def load_test_file():
+    with open("./../../Dataset/AssasinsCreed.csv") as csv_file:
         reader = csv.reader(csv_file, delimiter=',', quotechar='"')
         reader.next()
         data = []
         target = []
         for row in reader:
-            if row[0] and row[1]:
+            if row[0] and row[2]:
                 data.append(row[0])
-                target.append(row[1])
+                target.append(row[2])
         return data, target
 
 
@@ -28,12 +42,17 @@ def pre_process(data, target):
     count_vectorizer = CountVectorizer(binary='true')
     data = count_vectorizer.fit_transform(data)
     tfidf_data = TfidfTransformer(use_idf=False).fit_transform(data)
+
     return tfidf_data
 
 
 def learn_model(data, target):
-    data_train, data_test, target_train, target_test = cross_validation.train_test_split(data, target, test_size=0.3, random_state=43)
+    data_train, data_test, target_train, target_test = cross_validation.train_test_split(data, target, test_size=0.2, random_state=43)
     classifier = BernoulliNB().fit(data_train, target_train)
+
+    f = open('FiveClassBNNBClassifier.pickle', 'wb')
+    pickle.dump(classifier, f)
+    f.close()
     predicted = classifier.predict(data_test)
     evaluate_model(target_test, predicted)
 
@@ -44,9 +63,10 @@ def evaluate_model(target_true, target_predicted):
 
 
 def main():
-    data, target = load_file()
+    data, target = load_test_file()
     tf_idf = pre_process(data, target)
     learn_model(tf_idf, target)
+
 
 main()
 
