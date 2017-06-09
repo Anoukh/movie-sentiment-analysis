@@ -10,15 +10,15 @@ def main():
     classifier = load_classifier()
     print classifier.classify(extract_features("Anoukh is very happy"))
 
-    output = open("./../../Dataset/Output/logan-output.csv", "wb")
+    output = open("F:/FYP/Repo/movie-sentiment-analysis/Dataset/To Gayan/Twitter/Output2/AssassinsCreedPreProcessed-sentiment.csv", "wb")
     writer = csv.writer(output, delimiter=',', quoting=csv.QUOTE_MINIMAL)
-    output_array = []
-    with open("./../../Dataset/logan_imdb_text_processed.csv", "rb") as f:
+    with open("F:/FYP/Repo/movie-sentiment-analysis/Dataset/To Gayan/Twitter/AssassinsCreedPreProcessed.csv", "rb") as f:
         reader_tweets = csv.reader(f)
         for row in list(reader_tweets):
+            output_array = []
             output_array.append(row[0])
             output_array.append(row[1])
-            output_array.append(classifier.classify(extract_features(row[0])))
+            output_array.append(classifier.classify(extract_features(row[1])))
             writer.writerow(output_array)
 
 
